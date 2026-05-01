@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rümpelteam Wuppertal — Entrümpelung & Haushaltsauflösung</title>
+  <meta name="description" content="Entrümpelung, Haushaltsauflösung, Keller- und Dachbodenräumung in Wuppertal & Umgebung. Faire Festpreise, kostenlose Besichtigung, schnelle Terminvergabe." />
+  <meta name="theme-color" content="#0a0a0a" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Rümpelteam Wuppertal — Wir räumen auf, Sie atmen durch" />
+  <meta property="og:description" content="Entrümpelung, Haushaltsauflösung, Keller- & Dachbodenräumung in Wuppertal & Umgebung. Festpreis. Schnell. Diskret." />
+  <meta property="og:image" content="assets/logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg:       '#0a0a0a',
+            'bg-elev':'#141414',
+            'bg-card':'#171717',
+            neon:     '#84FF1A',
+            'neon-2': '#a8ff4a',
+            chrome:   '#D4D4D4',
+            ink:      '#F5F5F5',
+            muted:    '#A1A1AA',
+            line:     '#262626',
+          },
+          fontFamily: {
+            display: ['"Big Shoulders Display"', 'system-ui', 'sans-serif'],
+            sans:    ['Manrope', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            neon:     '0 0 0 1px #84FF1A33, 0 10px 40px -10px #84FF1A55',
+            'neon-strong': '0 0 24px #84FF1Acc, 0 0 60px #84FF1A55',
+          },
+          keyframes: {
+            float:    { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
+            pulseGlow:{ '0%,100%': { boxShadow: '0 0 0 0 #84FF1A55' }, '50%': { boxShadow: '0 0 0 8px transparent' } },
+          },
+          animation: {
+            float: 'float 6s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2.4s ease-out infinite',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --neon: #84FF1A;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: #F5F5F5;
+      font-family: 'Manrope', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* atmospheric backdrop: dual radial glows + film grain */
+    .bg-atmosphere {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(700px 500px at 8% 8%,  rgba(132,255,26,0.10), transparent 60%),
+        radial-gradient(900px 600px at 95% 92%, rgba(132,255,26,0.07), transparent 65%),
+        #0a0a0a;
+    }
+    .bg-atmosphere::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
+      opacity: 0.18;
+      mix-blend-mode: overlay;
+    }
+
+    /* display headline mod */
+    .display { font-family: 'Big Shoulders Display', system-ui, sans-serif; letter-spacing: -0.01em; line-height: 0.92; }
+
+    /* neon underline accent */
+    .neon-bar { position: relative; }
+    .neon-bar::before {
+      content:''; position:absolute; left:0; top:-14px;
+      width: 56px; height: 4px; background: var(--neon);
+      box-shadow: 0 0 18px var(--neon);
+    }
+
+    /* card hover behaviour — color/border only, no scale (avoid layout shift) */
+    .svc-card {
+      transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease, background-color .25s ease;
+      will-change: transform;
+    }
+    .svc-card:hover {
+      border-color: rgba(132,255,26,0.55);
+      box-shadow: 0 12px 40px -16px rgba(132,255,26,0.45), inset 0 1px 0 rgba(132,255,26,0.08);
+      transform: translateY(-4px);
+      background-color: rgba(132,255,26,0.03);
+    }
+    .svc-card:hover .svc-icon-wrap {
+      background-color: rgba(132,255,26,0.18);
+      border-color: rgba(132,255,26,0.6);
+    }
+
+    /* primary CTA */
+    .btn-neon {
+      background: var(--neon);
+      color: #0a0a0a;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 10px 30px -10px rgba(132,255,26,0.6), inset 0 -2px 0 rgba(0,0,0,0.2);
+      transition: transform .15s ease, box-shadow .25s ease, filter .15s ease;
+    }
+    .btn-neon:hover { filter: brightness(1.08); box-shadow: 0 14px 40px -10px rgba(132,255,26,0.85), inset 0 -2px 0 rgba(0,0,0,0.2); }
+    .btn-neon:active { transform: translateY(1px); }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(245,245,245,0.18);
+      color: #F5F5F5;
+      transition: border-color .2s ease, color .2s ease, background-color .2s ease;
+    }
+    .btn-ghost:hover { border-color: var(--neon); color: var(--neon); background-color: rgba(132,255,26,0.05); }
+
+    /* focus rings - clearly visible */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+      outline: 2px solid var(--neon);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* chrome / metallic text */
+    .chrome-text {
+      background: linear-gradient(180deg, #ffffff 0%, #b8b8b8 45%, #6b6b6b 55%, #d4d4d4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* reveal-on-scroll */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* topo lines pattern */
+    .topo {
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%2384FF1A' stroke-opacity='0.08' stroke-width='1'><path d='M0 40 Q 20 20, 40 40 T 80 40'/><path d='M0 60 Q 20 40, 40 60 T 80 60'/><path d='M0 20 Q 20 0, 40 20 T 80 20'/></g></svg>");
+    }
+
+    /* number badge with neon sheen */
+    .num-badge {
+      font-family: 'Big Shoulders Display', system-ui, sans-serif;
+      font-weight: 900;
+      font-size: clamp(64px, 9vw, 120px);
+      line-height: 0.85;
+      background: linear-gradient(180deg, #84FF1A 0%, #84FF1A 50%, #4a8a0e 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 4px 24px rgba(132,255,26,0.35));
+    }
+
+    /* Hero logo subtle float, disabled if reduced motion */
+    .hero-logo { animation: float 6s ease-in-out infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* form */
+    .field {
+      width: 100%;
+      background: #0f0f0f;
+      border: 1px solid #2a2a2a;
+      color: #F5F5F5;
+      padding: 14px 16px;
+      border-radius: 10px;
+      font: inherit;
+      transition: border-color .2s ease, background-color .2s ease;
+    }
+    .field::placeholder { color: #6b6b6b; }
+    .field:hover { border-color: #404040; }
+    .field:focus { border-color: var(--neon); background: #131313; outline: none; box-shadow: 0 0 0 3px rgba(132,255,26,0.15); }
+
+    /* checkbox custom */
+    .chk { appearance: none; width: 22px; height: 22px; border: 1px solid #404040; border-radius: 5px; background:#0f0f0f; cursor: pointer; flex-shrink:0; position: relative; transition: border-color .15s ease, background-color .15s ease; }
+    .chk:checked { background: var(--neon); border-color: var(--neon); }
+    .chk:checked::after { content:''; position:absolute; left:6px; top:2px; width:6px; height:12px; border:solid #0a0a0a; border-width:0 2.5px 2.5px 0; transform: rotate(45deg); }
+    .chk:hover { border-color: var(--neon); }
+
+    /* mobile menu */
+    .mob-menu { transform: translateY(-12px); opacity: 0; pointer-events: none; transition: transform .25s ease, opacity .25s ease; }
+    .mob-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+    /* tag chip */
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 999px;
+      background: rgba(132,255,26,0.08);
+      border: 1px solid rgba(132,255,26,0.25);
+      color: #c8ffa0;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* utility: min touch target */
+    .tt { min-width: 44px; min-height: 44px; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="bg-atmosphere" aria-hidden="true"></div>
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-neon focus:text-bg focus:px-4 focus:py-2 focus:rounded-md focus:font-bold">Zum Inhalt springen</a>
+
+  <!-- ====================================================== NAV -->
+  <header class="fixed top-3 sm:top-4 left-3 right-3 sm:left-4 sm:right-4 z-40">
+    <nav class="max-w-7xl mx-auto rounded-2xl border border-white/10 bg-black/70 backdrop-blur-xl px-4 sm:px-6 py-3 flex items-center justify-between" aria-label="Hauptnavigation">
+      <a href="#top" class="flex items-center gap-3 tt" aria-label="Rümpelteam Wuppertal Startseite">
+        <img src="assets/logo.png" alt="" width="44" height="44" class="h-10 w-10 object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" />
+        <span class="hidden h-10 w-10 rounded-md bg-neon text-bg display font-black items-center justify-center text-xl">R</span>
+        <span class="display text-xl tracking-tight leading-none">
+          <span class="text-neon">RÜMPEL</span><span class="chrome-text">TEAM</span>
+        </span>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-8 text-sm font-semibold">
+        <a href="#leistungen" class="hover:text-neon transition-colors">Leistungen</a>
+        <a href="#service"    class="hover:text-neon transition-colors">Service</a>
+        <a href="#warum"      class="hover:text-neon transition-colors">Warum wir?</a>
+        <a href="#einsatz"    class="hover:text-neon transition-colors">Einsatzgebiet</a>
+        <a href="#kontakt"    class="hover:text-neon transition-colors">Kontakt</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="tel:+4915510374880" class="hidden sm:inline-flex btn-neon items-center gap-2 px-4 py-2.5 rounded-xl text-sm tt">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>Jetzt anrufen</span>
+        </a>
+        <button id="navToggle" class="lg:hidden tt grid place-items-center rounded-xl border border-white/15" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobMenu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <div id="mobMenu" class="mob-menu lg:hidden mt-2 max-w-7xl mx-auto rounded-2xl border border-white/10 bg-black/90 backdrop-blur-xl p-4 grid gap-1 text-base font-semibold">
+      <a href="#leistungen" class="block px-3 py-3 rounded-lg hover:bg-white/5 hover:text-neon">Leistungen</a>
+      <a href="#service"    class="block px-3 py-3 rounded-lg hover:bg-white/5 hover:text-neon">Service</a>
+      <a href="#warum"      class="block px-3 py-3 rounded-lg hover:bg-white/5 hover:text-neon">Warum wir?</a>
+      <a href="#einsatz"    class="block px-3 py-3 rounded-lg hover:bg-white/5 hover:text-neon">Einsatzgebiet</a>
+      <a href="#kontakt"    class="block px-3 py-3 rounded-lg hover:bg-white/5 hover:text-neon">Kontakt</a>
+      <a href="tel:+4915510374880" class="mt-2 btn-neon flex items-center justify-center gap-2 px-4 py-3 rounded-xl">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Jetzt anrufen
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ====================================================== HERO -->
+    <section id="top" class="relative pt-32 sm:pt-36 lg:pt-40 pb-20 sm:pb-24 px-5 sm:px-8">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <!-- copy -->
+        <div class="lg:col-span-7 reveal">
+          <span class="chip mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-neon shadow-[0_0_10px_#84FF1A]"></span>
+            Entrümpelung · Haushaltsauflösung · Wuppertal
+          </span>
+          <h1 class="display text-[14vw] sm:text-[10vw] lg:text-[8vw] xl:text-[7.2rem] font-black mt-2">
+            <span class="block text-ink">WIR RÄUMEN AUF.</span>
+            <span class="block"><span class="text-neon">SIE ATMEN</span> <span class="chrome-text">DURCH.</span></span>
+          </h1>
+          <p class="mt-7 max-w-xl text-lg sm:text-xl text-muted leading-relaxed">
+            Vom kompletten Hausstand bis zum Keller-Gerümpel — wir übernehmen die ganze Arbeit. Festpreis, kostenlose Besichtigung und besenreine Übergabe in Wuppertal &amp; Umgebung.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#kontakt" class="btn-neon inline-flex items-center gap-2 px-6 py-4 rounded-xl text-base tt">
+              <span>Kostenloses Angebot anfordern</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="tel:+4915510374880" class="btn-ghost inline-flex items-center gap-2 px-6 py-4 rounded-xl text-base tt">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>Direkt anrufen</span>
+            </a>
+          </div>
+
+          <!-- trust bar -->
+          <div class="mt-10 grid grid-cols-3 gap-3 sm:gap-6 max-w-xl">
+            <div class="flex items-center gap-2 text-sm text-ink/90">
+              <svg class="text-neon flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+              <span>Festpreis</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-ink/90">
+              <svg class="text-neon flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+              <span>Kostenlos vor Ort</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-ink/90">
+              <svg class="text-neon flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+              <span>Schnell &amp; diskret</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- logo -->
+        <div class="lg:col-span-5 reveal" style="transition-delay: .2s">
+          <div class="relative aspect-square max-w-md mx-auto">
+            <div class="absolute inset-0 rounded-full" style="background: radial-gradient(circle at 50% 50%, rgba(132,255,26,0.35), transparent 60%); filter: blur(40px);"></div>
+            <img src="assets/logo.png" alt="Rümpelteam Wuppertal Logo — Maskottchen mit grünem Sofa unter Hausdach"
+                 width="600" height="600"
+                 loading="eager" fetchpriority="high"
+                 class="hero-logo relative w-full h-full object-contain drop-shadow-[0_20px_60px_rgba(132,255,26,0.35)]" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== LEISTUNGEN -->
+    <section id="leistungen" class="relative py-20 sm:py-28 px-5 sm:px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="reveal max-w-2xl">
+          <span class="chip mb-6">Unsere Leistungen</span>
+          <h2 class="display text-5xl sm:text-6xl lg:text-7xl font-black neon-bar pt-2">
+            Was wir <span class="text-neon">übernehmen</span>.
+          </h2>
+          <p class="mt-6 text-lg text-muted leading-relaxed">
+            Von einzelnen Räumen bis zur kompletten Auflösung — wir packen jeden Auftrag professionell an. Ein Anruf, ein Festpreis, alles erledigt.
+          </p>
+        </div>
+
+        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- 1 -->
+          <article class="svc-card reveal rounded-2xl border border-line bg-bg-card p-6">
+            <div class="svc-icon-wrap inline-flex items-center justify-center w-12 h-12 rounded-xl border border-line bg-neon/10 text-neon mb-5 transition-colors">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>
+            </div>
+            <h3 class="display text-2xl font-black tracking-tight">Wohnungen &amp; Häuser</h3>
+            <p class="mt-2 text-muted leading-relaxed">Komplette Entrümpelung — egal ob Etagenwohnung, Reihenhaus oder Einfamilienhaus.</p>
+          </article>
+
+          <!-- 2 -->
+          <article class="svc-card reveal rounded-2xl border border-line bg-bg-card p-6" style="transition-delay:.05s">
+            <div class="svc-icon-wrap inline-flex items-center justify-center w-12 h-12 rounded-xl border border-line bg-neon/10 text-neon mb-5 transition-colors">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/><path d="M9 12h6"/></svg>
+            </div>
+            <h3 class="display text-2xl font-black tracking-tight">Haushaltsauflösung</h3>
+            <p class="mt-2 text-muted leading-relaxed">Komplette Auflösung von A bis Z — inklusive Sortierung, Verwertung und Entsorgung.</p>
+          </article>
+
+          <!-- 3 -->
+          <article class="svc-card reveal rounded-2xl border border-line bg-bg-card p-6" style="transition-delay:.1s">
+            <div class="svc-icon-wrap inline-flex items-center justify-center w-12 h-12 rounded-xl border border-line bg-neon/10 text-neon mb-5 transition-colors">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="10" width="18" height="11" rx="1"/><path d="M7 10V6a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h3 class="display text-2xl font-black tracking-tight">Keller &amp; Dachboden</h3>
+            <p class="mt-2 text-muted leading-relaxed">Auch enge Treppen und schwer zugängliche Bereiche — wir bringen alles raus.</p>
+          </article>
+
+          <!-- 4 -->
+          <article class="svc-card reveal rounded-2xl border border-line bg-bg-card p-6" style="transition-delay:.15s">
+            <div class="svc-icon-wrap inline-flex items-center justify-center w-12 h-12 rounded-xl border border-line bg-neon/10 text-neon mb-5 transition-colors">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>
+            </div>
+            <h3 class="display text-2xl font-black tracking-tight">Garagen &amp; Lager</h3>
+            <p class="mt-2 text-muted leading-relaxed">Garagen, Lagerräume und Schuppen — werkzeug-, möbel- oder sperrgut-frei.</p>
+          </article>
+
+          <!-- 5 -->
+          <article class="svc-card reveal rounded-2xl border border-line bg-bg-card p-6" style="transition-delay:.2s">
+            <div class="svc-icon-wrap inline-flex items-center justify-center w-12 h-12 rounded-xl border border-line bg-neon/10 text-neon mb-5 transition-colors">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+            </div>
+            <h3 class="display text-2xl font-black tracking-tight">Sperrmüll-Entsorgung</h3>
+            <p class="mt-2 text-muted leading-relaxed">Einzelne Möbel oder ganze Lkw-Ladungen — fachgerecht und unkompliziert entsorgt.</p>
+          </article>
+
+          <!-- 6 -->
+          <article class="svc-card reveal rounded-2xl border border-line bg-bg-card p-6" style="transition-delay:.25s">
+            <div class="svc-icon-wrap inline-flex items-center justify-center w-12 h-12 rounded-xl border border-line bg-neon/10 text-neon mb-5 transition-colors">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+            </div>
+            <h3 class="display text-2xl font-black tracking-tight">Firmen &amp; Büros</h3>
+            <p class="mt-2 text-muted leading-relaxed">Büroauflösungen, Geschäftsräume und Praxen — diskret und außerhalb der Geschäftszeiten möglich.</p>
+          </article>
+
+          <!-- 7 -->
+          <article class="svc-card reveal rounded-2xl border border-line bg-bg-card p-6 sm:col-span-2 lg:col-span-1" style="transition-delay:.3s">
+            <div class="svc-icon-wrap inline-flex items-center justify-center w-12 h-12 rounded-xl border border-line bg-neon/10 text-neon mb-5 transition-colors">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M7 21V10l5-4 5 4v11"/><path d="M11 21v-4h2v4"/><path d="M14 7l4-4 3 3-4 4"/></svg>
+            </div>
+            <h3 class="display text-2xl font-black tracking-tight">Besenreine Übergabe</h3>
+            <p class="mt-2 text-muted leading-relaxed">Auf Wunsch übergeben wir die Räume besenrein — bereit für Vermieter, Käufer oder Notar.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== SERVICE-VERSPRECHEN -->
+    <section id="service" class="relative px-5 sm:px-8 py-12 sm:py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="reveal relative rounded-3xl border border-line bg-bg-elev/80 backdrop-blur p-8 sm:p-12 overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-neon to-transparent"></div>
+          <div class="grid lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-4">
+              <span class="chip mb-4">Unser Service</span>
+              <h2 class="display text-4xl sm:text-5xl font-black tracking-tight">
+                Was Sie von uns <span class="text-neon">erwarten</span> können.
+              </h2>
+            </div>
+            <ul class="lg:col-span-8 grid sm:grid-cols-2 gap-x-8 gap-y-5 text-base sm:text-lg">
+              <li class="flex items-start gap-3">
+                <span class="mt-1 flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-neon/15 text-neon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div><strong class="text-ink">Kostenlose Besichtigung</strong><span class="text-muted block text-sm mt-0.5">vor Ort, unverbindlich</span></div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1 flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-neon/15 text-neon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div><strong class="text-ink">Schnelle Terminvergabe</strong><span class="text-muted block text-sm mt-0.5">oft innerhalb weniger Tage</span></div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1 flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-neon/15 text-neon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div><strong class="text-ink">Faire Festpreise</strong><span class="text-muted block text-sm mt-0.5">keine versteckten Kosten</span></div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1 flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-neon/15 text-neon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div><strong class="text-ink">Zuverlässig &amp; diskret</strong><span class="text-muted block text-sm mt-0.5">pünktlich, respektvoll, ruhig</span></div>
+              </li>
+              <li class="flex items-start gap-3 sm:col-span-2">
+                <span class="mt-1 flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-neon/15 text-neon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div><strong class="text-ink">Fachgerechte Entsorgung</strong><span class="text-muted block text-sm mt-0.5">Wertstofftrennung &amp; ordnungsgemäßer Nachweis</span></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== WARUM WIR -->
+    <section id="warum" class="relative px-5 sm:px-8 py-20 sm:py-28">
+      <div class="max-w-7xl mx-auto">
+        <div class="reveal max-w-2xl">
+          <span class="chip mb-6">Warum wir?</span>
+          <h2 class="display text-5xl sm:text-6xl lg:text-7xl font-black neon-bar pt-2">
+            Vier Gründe, einmal <span class="text-neon">anzurufen</span>.
+          </h2>
+        </div>
+
+        <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+          <div class="reveal">
+            <div class="num-badge">01</div>
+            <h3 class="display text-2xl sm:text-3xl font-black mt-3 tracking-tight">Schnelle Abwicklung</h3>
+            <p class="mt-3 text-muted leading-relaxed">Termin vereinbart, Job erledigt — meist an einem einzigen Tag.</p>
+          </div>
+          <div class="reveal" style="transition-delay:.1s">
+            <div class="num-badge">02</div>
+            <h3 class="display text-2xl sm:text-3xl font-black mt-3 tracking-tight">Saubere Arbeit</h3>
+            <p class="mt-3 text-muted leading-relaxed">Auf Wunsch besenrein. Keine Spuren, keine Überraschungen.</p>
+          </div>
+          <div class="reveal" style="transition-delay:.2s">
+            <div class="num-badge">03</div>
+            <h3 class="display text-2xl sm:text-3xl font-black mt-3 tracking-tight">Transparente Preise</h3>
+            <p class="mt-3 text-muted leading-relaxed">Festpreis nach Besichtigung. Kein „Plötzlich kommt da noch was dazu".</p>
+          </div>
+          <div class="reveal" style="transition-delay:.3s">
+            <div class="num-badge">04</div>
+            <h3 class="display text-2xl sm:text-3xl font-black mt-3 tracking-tight">Freundliches Team</h3>
+            <p class="mt-3 text-muted leading-relaxed">Höflich, respektvoll, hilfsbereit — gerade in schwierigen Lebenssituationen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== EINSATZGEBIET -->
+    <section id="einsatz" class="relative px-5 sm:px-8 py-16 sm:py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="reveal relative rounded-3xl border border-line topo bg-bg-elev/60 p-8 sm:p-14 overflow-hidden">
+          <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-neon/20 blur-3xl pointer-events-none"></div>
+          <div class="relative grid lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-2 flex lg:justify-center">
+              <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl border border-neon/40 bg-bg/60 text-neon shadow-neon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+            </div>
+            <div class="lg:col-span-10">
+              <span class="chip mb-4">Einsatzgebiet</span>
+              <h2 class="display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[0.95]">
+                <span class="text-neon">Wuppertal</span> <span class="chrome-text">&amp; Umgebung</span>
+              </h2>
+              <p class="mt-5 text-lg text-muted leading-relaxed max-w-3xl">
+                Wir kommen schnell vor Ort — in Wuppertal, Solingen, Remscheid, Velbert, Wülfrath, Haan und der gesamten Region. Sie sind unsicher, ob Ihr Ort dazugehört? Rufen Sie kurz an, wir sagen Ihnen direkt Bescheid.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== KONTAKT -->
+    <section id="kontakt" class="relative px-5 sm:px-8 py-20 sm:py-28">
+      <div class="max-w-7xl mx-auto">
+        <div class="reveal max-w-2xl mb-14">
+          <span class="chip mb-6">Kontakt</span>
+          <h2 class="display text-5xl sm:text-6xl lg:text-7xl font-black neon-bar pt-2">
+            Holen Sie Ihr <span class="text-neon">Festpreis-Angebot</span>.
+          </h2>
+          <p class="mt-6 text-lg text-muted leading-relaxed">
+            Schreiben Sie uns oder rufen Sie direkt an. Wir melden uns schnell mit einem Termin für die kostenlose Besichtigung.
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-10">
+          <!-- contact info -->
+          <div class="lg:col-span-5 reveal">
+            <div class="rounded-2xl border border-line bg-bg-card p-7 sm:p-8 space-y-1">
+              <h3 class="display text-2xl font-black tracking-tight mb-5">Direkt erreichen</h3>
+
+              <a href="tel:+4915510374880" class="group flex items-center gap-4 px-4 py-4 -mx-4 rounded-xl hover:bg-white/5 transition-colors tt">
+                <span class="flex-shrink-0 inline-flex items-center justify-center w-11 h-11 rounded-xl border border-neon/30 bg-neon/10 text-neon group-hover:bg-neon group-hover:text-bg transition-colors">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+                <span>
+                  <span class="block text-xs uppercase tracking-wider text-muted">Telefon 1</span>
+                  <span class="block text-lg font-bold text-ink">+49 155 10374880</span>
+                </span>
+              </a>
+
+              <a href="tel:+4915510911738" class="group flex items-center gap-4 px-4 py-4 -mx-4 rounded-xl hover:bg-white/5 transition-colors tt">
+                <span class="flex-shrink-0 inline-flex items-center justify-center w-11 h-11 rounded-xl border border-neon/30 bg-neon/10 text-neon group-hover:bg-neon group-hover:text-bg transition-colors">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+                <span>
+                  <span class="block text-xs uppercase tracking-wider text-muted">Telefon 2</span>
+                  <span class="block text-lg font-bold text-ink">+49 155 10911738</span>
+                </span>
+              </a>
+
+              <a href="mailto:ruempelteam-wuppertal@gmx.de" class="group flex items-center gap-4 px-4 py-4 -mx-4 rounded-xl hover:bg-white/5 transition-colors tt">
+                <span class="flex-shrink-0 inline-flex items-center justify-center w-11 h-11 rounded-xl border border-neon/30 bg-neon/10 text-neon group-hover:bg-neon group-hover:text-bg transition-colors">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 6 12 13 2 6"/></svg>
+                </span>
+                <span class="min-w-0">
+                  <span class="block text-xs uppercase tracking-wider text-muted">E-Mail</span>
+                  <span class="block text-base font-bold text-ink truncate">ruempelteam-wuppertal@gmx.de</span>
+                </span>
+              </a>
+
+              <div class="pt-3 mt-3 border-t border-line">
+                <span class="block text-xs uppercase tracking-wider text-muted px-4">Social</span>
+                <div class="grid grid-cols-2 gap-2 mt-2">
+                  <a href="https://instagram.com/ruempelteamwup" target="_blank" rel="noopener" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors tt" aria-label="Instagram-Profil">
+                    <svg class="text-neon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+                    <span class="text-sm font-semibold">@ruempelteamwup</span>
+                  </a>
+                  <a href="https://www.tiktok.com/@rümpelteamwuppertal" target="_blank" rel="noopener" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors tt" aria-label="TikTok-Profil">
+                    <svg class="text-neon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 3a4.5 4.5 0 0 0 4.5 4.5v3a7.5 7.5 0 0 1-4.5-1.5v6.75a6 6 0 1 1-6-6c.34 0 .67.03 1 .09v3.18a3 3 0 1 0 2 2.83V3h3z"/></svg>
+                    <span class="text-sm font-semibold">@rümpelteam­wup­pertal</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="pt-5 text-sm text-muted">
+                <span class="font-semibold text-ink/90">Tipp:</span> Schicken Sie gern Fotos der Räume per WhatsApp oder Mail — so geht die Kalkulation noch schneller.
+              </div>
+            </div>
+          </div>
+
+          <!-- form -->
+          <div class="lg:col-span-7 reveal" style="transition-delay:.1s">
+            <form id="contactForm"
+                  action="https://formspree.io/f/mykozgzo"
+                  method="POST"
+                  class="rounded-2xl border border-line bg-bg-card p-7 sm:p-8 grid gap-5">
+              <div class="grid sm:grid-cols-2 gap-5">
+                <label class="block">
+                  <span class="block text-sm font-semibold mb-2">Name <span class="text-neon">*</span></span>
+                  <input class="field" type="text" name="name" required aria-required="true" autocomplete="name" placeholder="Vor- und Nachname" />
+                </label>
+                <label class="block">
+                  <span class="block text-sm font-semibold mb-2">Telefon</span>
+                  <input class="field" type="tel" name="telefon" autocomplete="tel" placeholder="+49 ..." />
+                </label>
+              </div>
+
+              <label class="block">
+                <span class="block text-sm font-semibold mb-2">E-Mail <span class="text-neon">*</span></span>
+                <input class="field" type="email" name="email" required aria-required="true" autocomplete="email" placeholder="ihre@email.de" />
+              </label>
+
+              <div class="grid sm:grid-cols-2 gap-5">
+                <label class="block">
+                  <span class="block text-sm font-semibold mb-2">Was soll geräumt werden?</span>
+                  <select class="field" name="objekt">
+                    <option value="">Bitte wählen…</option>
+                    <option>Wohnung</option>
+                    <option>Haus</option>
+                    <option>Keller</option>
+                    <option>Dachboden</option>
+                    <option>Garage / Lager</option>
+                    <option>Büro / Geschäft</option>
+                    <option>Sonstiges</option>
+                  </select>
+                </label>
+                <label class="block">
+                  <span class="block text-sm font-semibold mb-2">Wunschtermin</span>
+                  <input class="field" type="date" name="termin" />
+                </label>
+              </div>
+
+              <label class="block">
+                <span class="block text-sm font-semibold mb-2">Nachricht</span>
+                <textarea class="field" name="nachricht" rows="4" placeholder="Größe, Stockwerk, besondere Umstände…"></textarea>
+              </label>
+
+              <label class="flex items-start gap-3 text-sm text-muted leading-relaxed">
+                <input type="checkbox" name="datenschutz" required aria-required="true" class="chk mt-0.5" />
+                <span>Ich habe die <a href="datenschutz.html" class="text-neon underline underline-offset-2 hover:no-underline">Datenschutzerklärung</a> gelesen und stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert werden. <span class="text-neon">*</span></span>
+              </label>
+
+              <!-- honeypot -->
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+              <button type="submit" id="submitBtn" class="btn-neon flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-base tt mt-2">
+                <span id="submitLabel">Anfrage absenden</span>
+                <svg id="submitArrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                <svg id="submitSpinner" class="hidden animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>
+              </button>
+
+              <div id="formMsg" class="hidden text-sm rounded-lg p-3" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====================================================== FOOTER -->
+  <footer class="relative border-t border-line mt-12">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <a href="#top" class="flex items-center gap-3" aria-label="Zur Startseite">
+          <img src="assets/logo.png" alt="" width="48" height="48" class="h-12 w-12 object-contain" />
+          <span class="display text-2xl tracking-tight"><span class="text-neon">RÜMPEL</span><span class="chrome-text">TEAM</span> <span class="text-muted text-base font-sans font-semibold">Wuppertal</span></span>
+        </a>
+        <p class="mt-4 text-muted max-w-md leading-relaxed">Wir räumen auf — Sie atmen durch. Schnell, sauber, diskret. Festpreis nach kostenloser Besichtigung.</p>
+      </div>
+
+      <div class="lg:col-span-3">
+        <h4 class="text-sm uppercase tracking-wider text-muted font-semibold mb-4">Schnell-Links</h4>
+        <ul class="space-y-2 font-medium">
+          <li><a href="#leistungen" class="hover:text-neon transition-colors">Leistungen</a></li>
+          <li><a href="#service"    class="hover:text-neon transition-colors">Service</a></li>
+          <li><a href="#kontakt"    class="hover:text-neon transition-colors">Kontakt</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-4">
+        <h4 class="text-sm uppercase tracking-wider text-muted font-semibold mb-4">Rechtliches</h4>
+        <ul class="space-y-2 font-medium">
+          <li><a href="impressum.html"   class="hover:text-neon transition-colors">Impressum</a></li>
+          <li><a href="datenschutz.html" class="hover:text-neon transition-colors">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-line">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-sm text-muted">
+        <p>&copy; 2026 Rümpelteam Wuppertal. Alle Rechte vorbehalten.</p>
+        <p class="font-semibold tracking-wider"><span class="text-neon">SCHNELL</span> · <span class="chrome-text">SAUBER</span> · <span class="text-neon">DISKRET</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // mobile menu
+    (function(){
+      const btn = document.getElementById('navToggle');
+      const menu = document.getElementById('mobMenu');
+      if (!btn || !menu) return;
+      btn.addEventListener('click', () => {
+        const open = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+      });
+      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }));
+    })();
+
+    // reveal-on-scroll
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(el => el.classList.add('in'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(el => io.observe(el));
+    })();
+
+    // form submit handler with loading state + Formspree fetch
+    (function(){
+      const form = document.getElementById('contactForm');
+      const btn = document.getElementById('submitBtn');
+      const lbl = document.getElementById('submitLabel');
+      const arrow = document.getElementById('submitArrow');
+      const spin = document.getElementById('submitSpinner');
+      const msg  = document.getElementById('formMsg');
+      if (!form) return;
+
+      function showMsg(text, kind){
+        msg.className = 'text-sm rounded-lg p-3 ' + (kind === 'ok'
+          ? 'bg-neon/10 border border-neon/40 text-neon'
+          : 'bg-red-500/10 border border-red-500/40 text-red-300');
+        msg.textContent = text;
+        msg.classList.remove('hidden');
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        btn.disabled = true;
+        lbl.textContent = 'Wird gesendet…';
+        arrow.classList.add('hidden');
+        spin.classList.remove('hidden');
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            form.reset();
+            showMsg('Vielen Dank! Wir melden uns schnellstmöglich bei Ihnen.', 'ok');
+            lbl.textContent = 'Gesendet ✓';
+          } else {
+            const data = await res.json().catch(() => ({}));
+            showMsg(data.error || 'Senden fehlgeschlagen. Bitte rufen Sie uns kurz an.', 'err');
+            lbl.textContent = 'Anfrage absenden';
+            btn.disabled = false;
+          }
+        } catch (err) {
+          showMsg('Senden fehlgeschlagen. Bitte rufen Sie uns kurz an.', 'err');
+          lbl.textContent = 'Anfrage absenden';
+          btn.disabled = false;
+        } finally {
+          arrow.classList.remove('hidden');
+          spin.classList.add('hidden');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

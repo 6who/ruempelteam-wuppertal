@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Impressum — Rümpelteam Wuppertal</title>
+  <meta name="description" content="Impressum und Anbieterkennzeichnung der Rümpelteam Wuppertal." />
+  <meta name="robots" content="index,follow" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { bg:'#0a0a0a','bg-elev':'#141414','bg-card':'#171717', neon:'#84FF1A', chrome:'#D4D4D4', ink:'#F5F5F5', muted:'#A1A1AA', line:'#262626' },
+        fontFamily: { display:['"Big Shoulders Display"','system-ui','sans-serif'], sans:['Manrope','system-ui','sans-serif'] }
+      }}
+    };
+  </script>
+  <style>
+    body { background:#0a0a0a; color:#F5F5F5; font-family:'Manrope',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+    .display { font-family:'Big Shoulders Display',system-ui,sans-serif; letter-spacing:-0.01em; line-height:0.95; }
+    .chrome-text { background:linear-gradient(180deg,#fff 0%,#b8b8b8 45%,#6b6b6b 55%,#d4d4d4 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .bg-atmosphere { position:fixed; inset:0; z-index:-1; pointer-events:none;
+      background: radial-gradient(700px 500px at 8% 8%, rgba(132,255,26,0.08), transparent 60%),
+                  radial-gradient(900px 600px at 95% 92%, rgba(132,255,26,0.05), transparent 65%),
+                  #0a0a0a;
+    }
+    a:focus-visible, button:focus-visible { outline:2px solid #84FF1A; outline-offset:3px; border-radius:4px; }
+    .prose-dark h2 { font-family:'Big Shoulders Display',system-ui,sans-serif; font-weight:900; font-size:1.8rem; color:#F5F5F5; margin-top:2.5rem; margin-bottom:1rem; letter-spacing:-0.01em; }
+    .prose-dark h2:first-child { margin-top:0; }
+    .prose-dark p { color:#d4d4d4; line-height:1.75; margin-bottom:1rem; }
+    .prose-dark a { color:#84FF1A; text-decoration:underline; text-underline-offset:3px; }
+    .prose-dark a:hover { text-decoration:none; }
+    .prose-dark strong { color:#F5F5F5; }
+    .todo { background:rgba(132,255,26,0.08); border:1px dashed rgba(132,255,26,0.45); color:#c8ffa0; padding:0.6rem 0.9rem; border-radius:8px; font-size:0.92rem; margin:0.4rem 0; display:inline-block; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <div class="bg-atmosphere" aria-hidden="true"></div>
+
+  <header class="border-b border-line">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8 py-5 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3" aria-label="Zur Startseite">
+        <img src="assets/logo.png" alt="" width="40" height="40" class="h-10 w-10 object-contain" />
+        <span class="display text-xl tracking-tight"><span class="text-neon">RÜMPEL</span><span class="chrome-text">TEAM</span></span>
+      </a>
+      <a href="index.html" class="text-sm font-semibold hover:text-neon transition-colors">← Zurück zur Startseite</a>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-3xl mx-auto px-5 sm:px-8 py-14 sm:py-20 prose-dark">
+    <h1 class="display text-5xl sm:text-6xl font-black tracking-tight mb-3"><span class="text-neon">Impressum</span></h1>
+    <p class="text-muted">Angaben gemäß § 5 TMG.</p>
+
+    <h2>Anbieter</h2>
+    <p>
+      <span class="todo">TODO: Inhaber-Name(n) bzw. Firmenbezeichnung eintragen</span><br />
+      <span class="todo">TODO: Straße und Hausnummer</span><br />
+      <span class="todo">TODO: PLZ und Ort</span><br />
+      <span class="todo">TODO: Rechtsform (z. B. Einzelunternehmen / GbR / GmbH) — falls zutreffend</span>
+    </p>
+
+    <h2>Kontakt</h2>
+    <p>
+      Telefon: <a href="tel:+4915510374880">+49 155 10374880</a><br />
+      Telefon: <a href="tel:+4915510911738">+49 155 10911738</a><br />
+      E-Mail: <a href="mailto:ruempelteam-wuppertal@gmx.de">ruempelteam-wuppertal@gmx.de</a>
+    </p>
+
+    <h2>Umsatzsteuer-ID</h2>
+    <p>
+      <span class="todo">TODO: USt-IdNr. nach § 27 a UStG eintragen — oder Hinweis „Kleinunternehmer gemäß § 19 UStG, daher kein Ausweis von Umsatzsteuer."</span>
+    </p>
+
+    <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+    <p>
+      <span class="todo">TODO: Name und Anschrift der inhaltlich verantwortlichen Person (i. d. R. identisch mit dem Anbieter)</span>
+    </p>
+
+    <h2>EU-Streitschlichtung</h2>
+    <p>
+      Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+      <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a>.
+      Unsere E-Mail-Adresse finden Sie oben im Impressum.
+    </p>
+
+    <h2>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
+    <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+    <h2>Haftung für Inhalte</h2>
+    <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+    <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+
+    <h2>Haftung für Links</h2>
+    <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+
+    <h2>Urheberrecht</h2>
+    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+
+  </main>
+
+  <footer class="border-t border-line">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between text-sm text-muted">
+      <p>&copy; 2026 Rümpelteam Wuppertal.</p>
+      <p><a href="datenschutz.html" class="hover:text-neon transition-colors">Datenschutz</a> · <a href="index.html" class="hover:text-neon transition-colors">Startseite</a></p>
+    </div>
+  </footer>
+</body>
+</html>
