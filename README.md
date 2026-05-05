@@ -34,7 +34,7 @@ Diese Punkte **müssen** noch ausgefüllt werden, bevor die Webseite öffentlich
 
 ### Formspree-Setup (Kontaktformular)
 
-1. Account anlegen auf [formspree.io](https://formspree.io) (kostenloser Plan reicht für ~50 Anfragen / Monat).
+1. Account anlegen auf [formspree.io]() (kostenloser Plan reicht für ~50 Anfragen / Monhttps://formspree.ioat).
 2. Neues Form erstellen, als Empfänger-Adresse `ruempelteam-wuppertal@gmx.de` eintragen.
 3. Formspree gibt eine Form-ID aus (z. B. `xyzabcde`) und damit eine Endpoint-URL: `https://formspree.io/f/xyzabcde`.
 4. In `index.html` nach `REPLACE_WITH_FORMSPREE_ID` suchen und die ID dort einsetzen:
