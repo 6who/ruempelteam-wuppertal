@@ -84,6 +84,7 @@
     .bg-atmosphere::after {
       content: '';
       position: absolute; inset: 0;
+      pointer-events: none;
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
       opacity: 0.18;
       mix-blend-mode: overlay;
@@ -205,9 +206,9 @@
     .chk:checked::after { content:''; position:absolute; left:6px; top:2px; width:6px; height:12px; border:solid #0a0a0a; border-width:0 2.5px 2.5px 0; transform: rotate(45deg); }
     .chk:hover { border-color: var(--neon); }
 
-    /* mobile menu */
-    .mob-menu { transform: translateY(-12px); opacity: 0; pointer-events: none; transition: transform .25s ease, opacity .25s ease; }
-    .mob-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    /* mobile menu — absolute so it doesn't expand the fixed header height when closed */
+    .mob-menu { position: absolute; top: 100%; left: 0; right: 0; transform: translateY(-12px); opacity: 0; visibility: hidden; pointer-events: none; transition: transform .25s ease, opacity .25s ease, visibility 0s linear .25s; }
+    .mob-menu.open { transform: translateY(0); opacity: 1; visibility: visible; pointer-events: auto; transition: transform .25s ease, opacity .25s ease, visibility 0s linear 0s; }
 
     /* tag chip */
     .chip {
@@ -320,7 +321,7 @@
         <!-- logo -->
         <div class="lg:col-span-5 reveal" style="transition-delay: .2s">
           <div class="relative aspect-square max-w-md mx-auto">
-            <div class="absolute inset-0 rounded-full" style="background: radial-gradient(circle at 50% 50%, rgba(132,255,26,0.35), transparent 60%); filter: blur(40px);"></div>
+            <div class="absolute inset-0 rounded-full pointer-events-none" aria-hidden="true" style="background: radial-gradient(circle at 50% 50%, rgba(132,255,26,0.35), transparent 60%); filter: blur(40px);"></div>
             <img src="assets/logo.png" alt="Rümpelteam Wuppertal Logo — Maskottchen mit grünem Sofa unter Hausdach"
                  width="600" height="600"
                  loading="eager" fetchpriority="high"
